@@ -7,6 +7,7 @@
 
 # testing
 /coverage
+.imp.commands.txt
 
 # database
 /prisma/db.sqlite

@@ -1,0 +1,2 @@
+//helped run ts files 
+node --loader ts-node/esm ./src/lib/github.ts

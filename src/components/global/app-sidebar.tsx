@@ -6,6 +6,7 @@ import Link from 'next/link'
 import { cn } from '~/lib/utils'
 import { usePathname } from 'next/navigation'
 import { Button } from '../ui/button'
+import useProject from '~/hooks/use-project'
 
 type Props = {}
 
@@ -16,24 +17,11 @@ const items = [
     { title: "Billing", url: '/billing', icon: CreditCard },
 ]
 
-const projects = [
-    {
-        name: 'Project 1'
-    },
-    {
-        name: 'Project 2'
-    },
-    {
-        name: 'Project 3'
-    },
-    {
-        name: 'Project 4'
-    }
-]
 
 const AppSidebar = (props: Props) => {
     const pathname = usePathname();
     const {open} = useSidebar();
+    const {projects,projectId,setProjectId} = useProject()
 
     return (
         <Sidebar collapsible='icon' variant='floating'>
@@ -75,14 +63,14 @@ const AppSidebar = (props: Props) => {
                     <SidebarGroupContent>
                         <SidebarMenu>
                             {
-                                projects.map((project, idx) => (
+                                projects?.map((project, idx) => (
                                     <SidebarMenuItem key={idx}>
                                         <SidebarMenuButton asChild>
-                                            <div>
+                                            <div onClick={(()=>{setProjectId(project.id)})}>
                                                 <div className={cn(
                                                     'rounded-sm border size-6 flex items-center justify-center text-sm bg-white text-primary',
                                                     {
-                                                        'bg-primary text-white': true
+                                                        'bg-primary text-white': projectId===project.id
                                                     }
                                                 )}>
                                                     {project.name[0]}
