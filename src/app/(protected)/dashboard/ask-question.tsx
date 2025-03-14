@@ -48,7 +48,7 @@ const AskQuestionCard = () => {
                     <DialogHeader>
                         <DialogTitle className="font-medium">Gitly</DialogTitle>
                     </DialogHeader>
-                    <MDEditor.Markdown source={answer} className='max-w-[70vw] !h-full mx-h-[40vh] overflow-scroll'/>
+                    <MDEditor.Markdown source={answer} className='max-w-[70vw] !h-full max-h-[40vh] overflow-scroll'/>
                     <div className='h-4'/>
                     <CodeReferences filesReferences={fileReferences}/>
                 </DialogContent>
