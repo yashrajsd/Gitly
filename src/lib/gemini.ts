@@ -7,8 +7,6 @@ const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
 export const AISumariseCommit = async (diff: string) => {
     const response = await model.generateContent([
-
-        // Prompt below 
         `You are an expert programmer, and you are trying to summarize a git diff,
     reminders about the git diff format:
     For every file, there are a few metadata lines,like(for example):
@@ -16,7 +14,7 @@ export const AISumariseCommit = async (diff: string) => {
     diff --git a/lib/index.js b/lib/index,js
     index aadf691..bfef003 100644
     --- a/lib/index.js
-    +++ b/lib/index.js
+    +++ b/lib/index.jsw
     \`\`\`
     this means that \`lib/index.js\` was modified in this commit, Note this is only an example.
     then there is a specifier of the lines that were modified.

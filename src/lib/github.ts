@@ -6,8 +6,6 @@ export const octokit = new Octokit({
     auth:process.env.GITHUB_TOKEN
 })
 
-// const githubUrl = "https://github.com/yashrajsd/Parcel-Pilot"
-
 type Response ={
     commitHash:string;
     commitMessage:string;
