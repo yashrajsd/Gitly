@@ -75,3 +75,4 @@ export async function generateEmbedding(summary: string) {
 }
 
 // console.log(await generateEmbedding("Hello World"))
+// Hello There
