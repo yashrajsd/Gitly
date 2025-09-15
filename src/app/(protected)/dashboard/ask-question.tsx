@@ -9,6 +9,9 @@ import useProject from '~/hooks/use-project'
 import { askQuestion } from './actions';
 import { readStreamableValue } from 'ai/rsc';
 import CodeReferences from './code-references';
+import { api } from '~/trpc/react';
+import { toast } from 'sonner';
+
 
 const AskQuestionCard = () => {
     const { project } = useProject();
@@ -17,7 +20,7 @@ const AskQuestionCard = () => {
     const [loading,setLoading] = useState(false)
     const [answer,setAnswer] = useState('')
     const [fileReferences,setFileReferences] = useState<{fileName:string;sourceCode:string;summary:string}[]>([])
-
+    const saveAnswer = api.project.saveAnswer.useMutation()
     const onsubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if(!project?.id)return;
@@ -46,7 +49,24 @@ const AskQuestionCard = () => {
             <Dialog open={open} onOpenChange={handleQuestion}>
                 <DialogContent className='sm:max-w-[80vw]'>
                     <DialogHeader>
+                        <div className='flex items-center gap-2'>
                         <DialogTitle className="font-medium">Gitly</DialogTitle>
+                        <Button disabled={saveAnswer.isPending} variant={'outline'} onClick={()=>{saveAnswer.mutate({
+                            projecId:project?.id!,
+                            question:question,
+                            answer,
+                            filesReferences:fileReferences
+                        },{
+                            onSuccess:()=>{
+                                toast.success("Answer saved")
+                            },
+                            onError:()=>{
+                                toast.error("Failed to save answer")
+                            }
+                        })}}>
+                            Save Answer
+                        </Button>
+                        </div>
                     </DialogHeader>
                     <MDEditor.Markdown source={answer} className='max-w-[70vw] !h-full max-h-[40vh] overflow-scroll'/>
                     <div className='h-4'/>

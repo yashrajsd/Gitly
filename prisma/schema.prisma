@@ -12,6 +12,21 @@ datasource db {
     extensions = [vector]
 }
 
+model Question {
+    id              String   @id @default(uuid())
+    createdAt       DateTime @default(now())
+    updatedAt       DateTime @updatedAt
+    question        String
+    answer          String
+    filesReferences Json?
+
+    projectId String
+    project Project @relation(fields: [projectId],references: [id])
+
+    userId String
+    user   User   @relation(fields: [userId], references: [id])
+}
+
 model SourceCodeEmbedding {
     id               String                      @id @default(uuid())
     summaryEmbedding Unsupported("vector(768)")?
@@ -41,9 +56,10 @@ model User {
     FirstName String?
     LastName  String?
 
-    emailAddress  String          @unique
-    credits       Int             @default(150)
-    UserToProject UserToProject[]
+    emailAddress   String          @unique
+    credits        Int             @default(150)
+    UserToProject  UserToProject[]
+    questionsAsked Question[]
 }
 
 model Project {
@@ -58,6 +74,8 @@ model Project {
     UserToProject       UserToProject[]
     commit              Commit[]
     sourceCodeEmbedding SourceCodeEmbedding[]
+
+    savedQuestions Question[]
 }
 
 model UserToProject {
