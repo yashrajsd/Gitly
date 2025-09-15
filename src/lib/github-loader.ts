@@ -15,6 +15,7 @@ export const LoadGithubRepository = async(githubUrl:string,githubToken?:string)=
     const docs = await loader.load();
     return docs;
 }
+// this is a loader
 
 export const indexGithubRepo = async (projectId:string,githubUrl:string,githubToken?:string)=>{
     const docs = await LoadGithubRepository(githubUrl,githubToken)
